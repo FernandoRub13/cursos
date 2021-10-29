@@ -8,7 +8,7 @@
      [
          'name'  => 'Cursos',
          'route' => route('courses.index'),
-         'active' => request()->routeIs('courses.index')
+         'active' => request()->routeIs('courses.*')
      ],
      
  ]   
@@ -112,12 +112,15 @@
 
                             <x-slot name="content">
                                 <!-- Account Management -->
-                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Manage Account') }}
-                                </div>
+                                {{-- <div class="block px-4 my-0 py-2 text-xs text-gray-300">
+                                    {{ __('') }}
+                                </div> --}}
 
                                 <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                    {{ __('Profile') }}
+                                    {{ __('Perfil') }}
+                                </x-jet-dropdown-link>
+                                <x-jet-dropdown-link href="{{ route('instructor.courses.index') }}">
+                                    {{ __('Instructor') }}
                                 </x-jet-dropdown-link>
 
                                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -189,7 +192,10 @@
                 <div class="mt-3 space-y-1">
                     <!-- Account Management -->
                     <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
-                        {{ __('Profile') }}
+                        {{ __('Perfil') }}
+                    </x-jet-responsive-nav-link>
+                    <x-jet-responsive-nav-link href="{{ route('instructor.courses.index') }}" :active="request()->routeIs('profile.show')">
+                        {{ __('Instructor') }}
                     </x-jet-responsive-nav-link>
 
                     @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
