@@ -48,15 +48,16 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
            
             Route::middleware('web', 'auth')
+                ->name('admin.')
                 ->prefix('admin')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/admin.php'));
                 
-            Route::middleware('web', 'auth')
-                ->name('instructor.')
-                ->prefix('instructor')
-                ->namespace($this->namespace)
-                ->group(base_path('routes/instructor.php'));
+            Route::middleware('web', 'auth') // Se declara el middleware para que solo puedan acceder usuarios loggeados
+                ->name('instructor.') // los nombres de las rutas empiezan con instructor.
+                ->prefix('instructor') // Se le agrega el prefijo instructor
+                ->namespace($this->namespace) // Se le agrega el namespace
+                ->group(base_path('routes/instructor.php')); // Se le agrega el archivo en donde se encuentran definidas las rutas
         });
     }
 

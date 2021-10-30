@@ -45,7 +45,7 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
+    'logo' => '<b>Cursos</b> ADMIN ',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -188,7 +188,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -247,11 +247,24 @@ return [
             'can'  => 'manage-blog',
         ],
         [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'        => 'Tablero principal', //texto que aparece en el menu
+            'route'         => 'admin.home', //ruta a la que apunta el menu
+            'icon'        => 'fas fa-fw fa-house-user', //icono que aparece en el menu
+            'can'      => 'Ver tablero', //permisos que necesita para ver el menu
+        ],
+        [
+            'text'        => 'Lista de roles', //texto que aparece en el menu
+            'route'         => 'admin.roles.index', //ruta a la que se dirige
+            'icon'        => 'fas fa-fw fa-users-cog', //icono que aparece en el menu
+            'active'    => ['admin/roles/*'], //ruta a la que se dirige
+            'can'       => 'Leer rol', //permiso que tiene el usuario para ver el menu
+        ],
+        [
+            'text'        => 'Lista de usuarios', //texto que aparece en el menu
+            'route'         => 'admin.users.index', //ruta a la que apunta el menu
+            'icon'        => 'fas fa-fw fa-users', //icono que aparece en el menu
+            'active'    => ['admin/users/*'], //ruta que se activa
+            'can'       => 'Leer usuarios', //permiso que tiene el usuario para ver la ruta del menu
         ],
         ['header' => 'account_settings'],
         [
@@ -472,5 +485,5 @@ return [
     |
     */
 
-    'livewire' => false,
+    'livewire' => true,
 ];

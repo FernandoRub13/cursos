@@ -23,9 +23,9 @@ class ImageFactory extends Factory
     {
         return [
                                                                                                      // true-> public/storage/cursos/imagen.jpg
-            'url' => 'cursos/' . $this->faker->image('public/storage/cursos', 640, 480, null, false) // flase-> imagen.jpg
-            // 'imageable_id' => null,
-            // 'imageable_type'=> null
+            'url' => 'courses/' . $this->faker->image('public/storage/courses', 640, 480, null, false) // false-> imagen.jpg
+            // 'imageable_id' => null, // El campo imageable_id es una clave foránea que se debe llenar en el modelo que se está creando
+            // 'imageable_type'=> null // El campo imageable_type es una clave foránea que se debe llenar en el modelo que se está creando
         ];
     }
 }

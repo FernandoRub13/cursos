@@ -43,5 +43,10 @@
         @stack('modals')
 
         @livewireScripts
+
+        {{-- // Si la vista tiene una variable js, la imprime --}}
+        @isset($js) 
+            {{$js}}
+        @endisset
     </body>
 </html>
