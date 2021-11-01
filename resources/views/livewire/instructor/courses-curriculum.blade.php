@@ -48,7 +48,9 @@
           @enderror
         </div>
         <div class="flex justify-end">
-
+          <button wire:click="store" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+            Agregar
+          </button>
         </div>
     </article>
   </div>

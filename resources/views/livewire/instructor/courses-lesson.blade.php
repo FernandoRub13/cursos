@@ -3,35 +3,35 @@
   <article x-data="{open: false}" class="card mt-4">
     <div class="card-body">
       @if ($lesson->id == $item->id)
-      <form wire:submit.prevent='update'>
-        <div class="flex itmes-center">
-          <label class="w-32">Nombre</label>
-          <input class="appearance-none border-2 border-gray-200 roundedw-full p-1 w-full " wire:model="lesson.name">
-        </div>
-        @error('lesson.name')
-        <span class="font-bold text-xs text-red-500">{{$message}}</span>
-        @enderror
-        <div class="flex items-center mt-4">
-          <label class="w-32">Plataforma</label>
-          <select class="appearance-none border-2 border-gray-200 roundedw-full p-1 w-full"
-            wire:model="lesson.platform_id">
-            @foreach ($platforms as $item)
-            <option value="{{$item->id}}">{{$item->name}}</option>
-            @endforeach
-          </select>
-        </div>
-        <div class="flex itmes-center mt-2">
-          <label class="w-32">URL</label>
-          <input class="appearance-none border-2 border-gray-200 roundedw-full p-1 w-full " wire:model="lesson.url">
-        </div>
-        @error('lesson.url')
-        <span class="font-bold text-xs text-red-500">{{$message}}</span>
-        @enderror
-        <div class="mt-4 flex justify-end">
-          <button wire:click="cancel" class="btn btn-danger">Cancelar</button>
-          <button wire:click="update" class="btn btn-primary">Actualizar</button>
-        </div>
-      </form>
+        <form wire:submit.prevent='update'>
+          <div class="flex itmes-center">
+            <label class="w-32">Nombre</label>
+            <input class="appearance-none border-2 border-gray-200 roundedw-full p-1 w-full " wire:model="lesson.name">
+          </div>
+          @error('lesson.name')
+          <span class="font-bold text-xs text-red-500">{{$message}}</span>
+          @enderror
+          <div class="flex items-center mt-4">
+            <label class="w-32">Plataforma</label>
+            <select class="appearance-none border-2 border-gray-200 roundedw-full p-1 w-full"
+              wire:model="lesson.platform_id">
+              @foreach ($platforms as $item)
+              <option value="{{$item->id}}">{{$item->name}}</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="flex itmes-center mt-2">
+            <label class="w-32">URL</label>
+            <input class="appearance-none border-2 border-gray-200 roundedw-full p-1 w-full " wire:model="lesson.url">
+          </div>
+          @error('lesson.url')
+          <span class="font-bold text-xs text-red-500">{{$message}}</span>
+          @enderror
+          <div class="mt-4 flex justify-end">
+            <button wire:click="cancel" class="btn btn-danger">Cancelar</button>
+            <button wire:click="update" class="btn btn-primary">Actualizar</button>
+          </div>
+        </form>
       @else
       <header>
         <h1 class="cursor-pointer" x-on:click="open=!open" ><i class="far fa-play-circle text-blue-500 mr-1"></i> Lección: {{$item->name}}</h1>
