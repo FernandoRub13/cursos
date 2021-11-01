@@ -12,6 +12,13 @@ use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:Leer cursos')->only('index');
+        $this->middleware('can:Crear cursos')->only('create', 'store');
+        $this->middleware('can:Actualizar cursos')->only('edit', 'update', 'goals');
+        $this->middleware('can:Eliminar cursos')->only('destroy');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +37,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        $categories = Category::pluck('name', 'id');
+        $categories = Category::pluck('name', 'id'); //pluck es usado para obtener solo el nombre y el id de la categoria
         $prices = Price::pluck('name', 'id');
         $levels = Level::pluck('name', 'id');
 
@@ -86,6 +93,7 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        $this->authorize('dictated', $course);
         $categories = Category::pluck('name', 'id');
         $prices = Price::pluck('name', 'id');
         $levels = Level::pluck('name', 'id');
@@ -102,6 +110,7 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
+        $this->authorize('dictated', $course);
         $request->validate([
             'title' => 'required',
             'slug' => 'required|unique:courses,slug,'.$course->id,
@@ -140,6 +149,16 @@ class CourseController extends Controller
         //
     }
     public function goals(Course $course){
+        $this->authorize('dictated', $course); //Verificamos que el usuario autenticado sea el instructor del curso
         return view('instructor.courses.goals', compact('course'));
+    }
+    public function status(Course $course){
+        $course->status = Course::REVISION;
+        $course->save();
+        $course->observation->delete();
+        return redirect()->route('instructor.courses.edit', $course);
+    }
+    public function observation (Course $course){
+        return view('instructor.courses.observation', compact('course'));
     }
 }

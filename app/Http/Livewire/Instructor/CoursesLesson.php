@@ -14,7 +14,7 @@ class CoursesLesson extends Component
 
     public $name, $platform_id=1, $url;
 
-    protected $rules = [
+    protected $rules = [ // Reglas de validación para el formulario de creación de lecciones
 
         'lesson.name' => 'required',
         'lesson.platform_id' => 'required',
@@ -23,9 +23,9 @@ class CoursesLesson extends Component
     ];
 
     public function mount(Section $section){
-        $this->section = $section;
-        $this->lesson = new Lesson();
-        $this->platforms = Platform::all();
+        $this->section = $section; // Se obtiene la sección a la que pertenece la lección
+        $this->lesson = new Lesson(); // Se crea una nueva lección
+        $this->platforms = Platform::all(); // Se obtienen todas las plataformas
     }
 
     public function render()
@@ -34,8 +34,8 @@ class CoursesLesson extends Component
     }
 
     public function edit(Lesson $lesson){
-        $this->resetValidation();
-        $this->lesson = $lesson;
+        $this->resetValidation(); // Se resetea la validación
+        $this->lesson = $lesson; // Se obtiene la lección a editar
     }
 
     public function update(){
@@ -53,12 +53,12 @@ class CoursesLesson extends Component
         $this->lesson = new Lesson();
     }
     public function store(){
-        $rules =[
+        $rules =[ // Reglas de validación para el formulario de creación de lecciones 
             'name' => 'required',
             'platform_id' => 'required',
-            'url' => ['required', 'regex:%^ (?:https?://)? (?:www\.)? (?: youtu\.be/ | youtube\.com (?: /embed/ | /v/ | /watch\?v= ) ) ([\w-]{10,12}) $%x']
+            'url' => ['required', 'regex:%^ (?:https?://)? (?:www\.)? (?: youtu\.be/ | youtube\.com (?: /embed/ | /v/ | /watch\?v= ) ) ([\w-]{10,12}) $%x'] // Regla para validar la url de youtube
         ];
-        if ($this->platform_id == 2) {
+        if ($this->platform_id == 2) { // Si la plataforma es Vimeo se agrega la regla de validación
             $rules['url'] = ['required', 'regex:/\/\/(www\.)?vimeo.com\/(\d+)($|\/)/'];
         }
         $this->validate($rules);
@@ -68,12 +68,12 @@ class CoursesLesson extends Component
             'url' => $this->url,
             'section_id' => $this->section->id
         ]);
-        $this->reset(['name', 'platform_id', 'url']);
+        $this->reset(['name', 'platform_id', 'url']); // Se resetea el formulario de creación de lecciones para que no queden datos en el mismo
         $this->section = Section::find($this->section->id);
 
     }
     public function destroy(Lesson $lesson ){
         $lesson->delete();
-        $this->section = Section::find($this->section->id);
+        $this->section = Section::find($this->section->id); 
     }
 }

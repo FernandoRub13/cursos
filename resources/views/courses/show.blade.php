@@ -70,7 +70,7 @@
         <div class="card" >
           <div class="card-body" >
             <h1 class="font-bold text-2xl mb-2" >Descripción</h1>
-            <p class="text-gray-700  " >{{$course->description}}</p>
+            <p class="text-gray-700  " >{!!$course->description!!}</p>
           </div>
       </section>
     </div>

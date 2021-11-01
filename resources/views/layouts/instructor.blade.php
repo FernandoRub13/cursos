@@ -36,15 +36,41 @@
 
             <!-- Page Content -->
             <main>
-    <div class="container py-8 grid grid-cols-5">
+    <div class="container py-8 grid grid-cols-5 gap-5">
       <aside>
         <h1 class="font-bold text-lg mb-4">Edición del curso</h1>
-        <ul class="text-sm text-gray-600">
+        <ul class="text-sm text-gray-600 mb-4">
           <li class="pl-2 leading-7 mb-1 border-l-4 @routeIs('instructor.courses.edit', $course) border-indigo-400 @else border-transparent @endif "><a href="{{route('instructor.courses.edit', $course)}}">Información del curso</a></li>
           <li class="pl-2 leading-7 mb-1 border-l-4 @routeIs('instructor.courses.curriculum', $course) border-indigo-400 @else border-transparent @endif"><a href="{{route('instructor.courses.curriculum', $course)}}">Lecciones del curso</a></li>
           <li class="pl-2 leading-7 mb-1 border-l-4 @routeIs('instructor.courses.goals', $course) border-indigo-400 @else border-transparent @endif"><a href="{{route('instructor.courses.goals', $course)}}">Metas del curso</a></li>
-          <li class="pl-2 leading-7 mb-1 border-l-4 border-transparent"><a href="">Estudiantes del curso</a></li>
+          <li class="pl-2 leading-7 mb-1 border-l-4 @routeIs('instructor.courses.students', $course) border-indigo-400 @else border-transparent @endif"><a href="{{route('instructor.courses.students', $course)}}">Estudiantes del curso</a></li>
+        @if ($course->observation)
+            <li class="pl-2 leading-7 mb-1 border-l-4 @routeIs('instructor.courses.observation', $course) border-indigo-400 @else border-transparent @endif"><a href="{{route('instructor.courses.observation', $course)}}">Observaciones del curso</a></li>
+        @endif
         </ul>
+
+        @switch($course->status)
+            @case(1)
+            <form action="{{route('instructor.courses.status', $course)}}" method="post">
+                @csrf
+                <button class="btn btn-danger" type="submit" >Solicitar revision</button>
+            </form>
+                @break
+            @case(2)
+                <div class="card text-gray-500">
+                    <div class="card-body">Este curso se encuentra en revisión</div>
+                </div>
+                @break
+            @case(3)
+                <div class="card text-gray-500">
+                    <div class="card-body">Este curso se encuentra publicado</div>
+                </div>
+                @break
+            @default
+                
+        @endswitch
+
+        
       </aside>
       <div class="col-span-4 card">
   

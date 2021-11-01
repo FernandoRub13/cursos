@@ -5,14 +5,16 @@ namespace App\Http\Livewire\Instructor;
 use App\Models\Course;
 use App\Models\Section;
 use Livewire\Component;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class CoursesCurriculum extends Component
 {
+    use AuthorizesRequests;
 
     public $course, $section, $name;
 
     protected $rules = [
-        'section.name' => 'required',
+        'section.name' => 'required', // Agregamos las validaciones para el nombre de la sección
 
     ];
 
@@ -20,11 +22,12 @@ class CoursesCurriculum extends Component
     {
         $this->course = $course;
         $this->section = new Section();
+        $this->authorize('dictated', $course); 
     }
 
     public function render()
     {
-        return view('livewire.instructor.courses-curriculum')->layout('layouts.instructor');
+        return view('livewire.instructor.courses-curriculum')->layout('layouts.instructor', ['course' => $this->course]);
     }
 
     public function edit(Section $section){

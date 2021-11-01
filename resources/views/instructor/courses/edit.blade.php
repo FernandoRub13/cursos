@@ -1,8 +1,7 @@
-<x-instructor-layout>
+<x-instructor-layout :course="$course" >
 
-  <x-slot name="course">
-    {{$course->slug}}
-  </x-slot>
+  <h1 class="text-2xl font-bold" >INFORMACIÓN DEL CURSO</h1>
+  <hr class="mt-2 mb-6">
 
   {!! Form::model($course, ['route' => ['instructor.courses.update', $course], 'method' => 'put', 'files' =>
   true,'autocomplete'=>'off' ]) !!}
